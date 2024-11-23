@@ -8,7 +8,7 @@
 
 ### Topic
 
-中国气象数据可视化
+中国气象数据可视化（以北京为例）
 
 ### Data Source
 
@@ -20,9 +20,7 @@
 
 > Part1:
 >
-> Part2: 
->
-> Part3：
+> Part2:
 
 ### Visualization
 
