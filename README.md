@@ -1,6 +1,6 @@
 # Data-Visualization
 
-中国人民大学数据可视化课程的期中大作业，由小组四人共同完成。
+中国人民大学数据可视化课程的期末大作业，由Tian Runze完成。
 
 * Data Set收录了所需要的数据集及其来源;
 * Code中收录了数据清洗以及可视化绘图的代码(R语言);
@@ -13,7 +13,7 @@
 
 北京市空气质量数据可视化
 
-### Data Source - Principal: Tian R.Z
+### Data Source 
 
 * **Source**:  [北京市环境保护检测中心](http://www.bjmemc.com.cn/) （2013.12.06-2024.11.16）- [王晓磊](https://quotsoft.net/air/)
 * **Description:**
@@ -83,7 +83,7 @@
   20140105,	172.614,   102.917,   104.569, ...
   ```
 
-### Visualization - Principal: Duan S.J. & Kuang Y.Q.
+### Visualization 
 
 * FrameWork：
 
@@ -116,4 +116,5 @@
   6. 不同年份污染最严重的地区的变化
   7. 不同地区年间空气质量的变化（2014-2016三年平均数据与2020-2023三年平均数据对比，对比每月平均空气质量，柱状图重叠，体现哪些地区治理最好）
 
-### Report and Document - Principal: Xu B.W.
+### Report and Document 
+见 [Final Report](https://github.com/Welldefine/Data-Visualization/tree/main/Final%20Report) 文件夹

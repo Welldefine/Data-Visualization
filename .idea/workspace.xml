@@ -5,9 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dde5baa9-1a56-41bc-9c1c-50926cc2399e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Code/AQI and others.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Code/AQI visualization.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Code/DataClean.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Code/DataClean.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Final Report/Report.aux" beforeDir="false" afterPath="$PROJECT_DIR$/Final Report/Report.aux" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Final Report/Report.log" beforeDir="false" afterPath="$PROJECT_DIR$/Final Report/Report.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Final Report/Report.out" beforeDir="false" afterPath="$PROJECT_DIR$/Final Report/Report.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Final Report/Report.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/Final Report/Report.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Final Report/Report.synctex.gz" beforeDir="false" afterPath="$PROJECT_DIR$/Final Report/Report.synctex.gz" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Final Report/Report.tex" beforeDir="false" afterPath="$PROJECT_DIR$/Final Report/Report.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Outputs/2016、2018、2020与2023年日均 AQI 热力图.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Outputs/AQI一日内变化.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Outputs/AQI关于城区和月份的聚类热力图.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Outputs/AQI的分布曲线.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Outputs/主要污染物以及AQI之间的相互关系.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Outputs/主要污染物的逐年变化情况.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Outputs/北京一年四季AQI (2014-2023).png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Outputs/北京不同区域的AQI箱线图 (2014-2023).png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Outputs/北京全年平均AQI趋势图 (2014-2023).png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Outputs/北京各区域强污染的天数 (2014-2023).png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,7 +100,7 @@
       <workItem from="1736827052751" duration="879000" />
       <workItem from="1736834750103" duration="89000" />
       <workItem from="1736843173103" duration="6371000" />
-      <workItem from="1736861262096" duration="5615000" />
+      <workItem from="1736861262096" duration="7757000" />
     </task>
     <servers />
   </component>

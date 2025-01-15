@@ -1,5 +1,6 @@
 \documentclass[12pt, a4paper, oneside]{ctexart}
-\usepackage[hmargin=1in,vmargin=1in]{geometry}
+\usepackage[hmargin=0.7in,vmargin=0.7in]{geometry}
+\usepackage{placeins}
 \usepackage{amsmath, amsthm, amssymb, bm, color, framed, graphicx, hyperref, mathrsfs,extarrows}
 \title{\textbf{数据可视化报告——北京市空气治理}}
 \author{田润泽-2023201906}
@@ -11,7 +12,14 @@
 \begin{document}
 \maketitle
 \begin{abstract}
-    本文通过对北京市空气质量数据的分析，探讨了北京市空气质量的现状，以及北京市近年来空气治理的情况。通过对数据的处理和可视化，我们发现了一些有趣的现象，例如北京市空气质量的季节性变化，以及不同污染物之间的相关性。我们还通过对数据的分析，得到了空气质量的分布与变化，以帮助人们合理安排出行与出游。最后，我们总结了本文的研究结果，并提出了一些可能的研究方向。
+    本文通过对北京市空气质量数据的分析，
+    探讨了北京市空气质量的现状，以及北京市近年来空气治理的情况。
+    通过对数据的处理和可视化，我们发现了一些有趣的现象，
+    例如北京市空气质量的季节性变化，以及不同污染物之间的相关性。
+    我们还通过对数据的分析，得到了空气质量的分布与变化，
+    以帮助人们合理安排出行与出游。本报告的一切数据、
+    代码与可视化成果均已同步至个人github平台：
+    \url{https://github.com/Welldefine/Data-Visualization}
 \end{abstract}
 
 \section{研究背景}
@@ -30,11 +38,281 @@
     \item 展示空气质量特征
     通过对北京市空气质量数据的分析，展示不同季节、不同区域的空气质量特征，探究空气质量的时空分布规律。
 \end{enumerate}
-\section{研究方法}
-\section{数据来源}
-\section{数据处理}
-\section{数据可视化}
-\section{结论}
-\section{致谢}
+\section{数据说明与数据来源}
+\textbf{数据来源：} \href{http://www.bjmemc.com.cn/}{北京市环境保护检测中心} (2013.12.06–2024.11.16) - \href{https://quotsoft.net/air/}{王晓磊}
 
+\subsection{数据描述}
+本研究所使用的数据集包括2014年到2024年北京市空气质量数据，总计包含11个文件夹，每个文件夹对应一年内的空气质量记录。具体数据内容如下：  
+\begin{itemize}
+    \item \textbf{文件结构:} 每个文件夹包含逐日空气质量数据（1月1日至12月31日）。
+    \item \textbf{主要文件:} 
+    \begin{itemize}
+        \item \texttt{beijing\_all\_20xxxxxx.csv}：包括PM2.5、PM10、AQI等主要空气质量指标。
+        \item \texttt{beijing\_extra\_20xxxxxx.csv}：包括SO2、NO2、CO、O3等附加空气质量指标。
+    \end{itemize}
+    \item \textbf{数据格式:} CSV 文件。第一行为列名，包括日期、小时、数据类型以及各监测点名。以下每行为某时刻的一种类型数据。
+\end{itemize}
+
+\subsection{数据类型}
+数据集中所包含的空气质量指标及其单位如表 \ref{tab:datatype} 所示。
+
+\begin{table}[h]
+    \centering
+    \caption{数据类型及单位}
+    \label{tab:datatype}
+    \begin{tabular}{|c|l|c|}
+        \hline
+        \textbf{Type}       & \textbf{数据类型}                        & \textbf{单位}          \\ \hline
+        AQI                 & AQI 实时值                              & N/A                    \\ \hline
+        PM2.5               & PM2.5 1 小时均值                        & $\mu g/m^3$            \\ \hline
+        PM2.5\_24h          & PM2.5 24 小时均值                       & $\mu g/m^3$            \\ \hline
+        PM10                & PM10 1 小时均值                         & $\mu g/m^3$            \\ \hline
+        PM10\_24h           & PM10 24 小时均值                        & $\mu g/m^3$            \\ \hline
+        SO2                 & SO2 1 小时均值                          & $\mu g/m^3$            \\ \hline
+        SO2\_24h            & SO2 24 小时均值                         & $\mu g/m^3$            \\ \hline
+        NO2                 & NO2 1 小时均值                          & $\mu g/m^3$            \\ \hline
+        NO2\_24h            & NO2 24 小时均值                         & $\mu g/m^3$            \\ \hline
+        O3                  & O3 1 小时均值                           & $\mu g/m^3$            \\ \hline
+        O3\_24h             & O3 24 小时最大值                        & $\mu g/m^3$            \\ \hline
+        O3\_8h              & O3 8 小时滑动均值                       & $\mu g/m^3$            \\ \hline
+        O3\_8h\_24h         & O3 8 小时滑动均值的 24 小时最大值        & $\mu g/m^3$            \\ \hline
+        CO                  & CO 1 小时均值                           & $mg/m^3$               \\ \hline
+        CO\_24h             & CO 24 小时均值                          & $mg/m^3$               \\ \hline
+    \end{tabular}
+\end{table}
+\newpage
+\subsection{数据样例}
+以下是数据文件的样例：  
+\begin{verbatim}
+date,     hour, type,      东四, 天坛, 官园, 万寿西宫,...
+20131205, 1,    PM2.5,     93,   93,   63,  79,...
+20131205, 1,    PM2.5_24h, 93,   108,  99,  123,...
+20131205, 1,    PM10,      103,  124,  81,  107,...
+20131205, 1,    PM10_24h,  97,   130,  122, 141,...
+20131205, 1,    AQI,       123,  141,  130, 161,...
+\end{verbatim}
+\section{数据清洗}
+\subsection{清洗结果}  
+\texttt{output\_data}中包含了数据的初步清洗和分区整理后得到两个子文件夹：  
+\begin{itemize}
+    \item \textbf{\texttt{first\_clean}:}  
+    该文件夹将同一年的 \texttt{\_all} 数据和 \texttt{\_extra} 数据进行了合并，生成了初始数据集，为后续分析奠定了基础。
+    
+    \item \textbf{\texttt{by\_district}:}  
+    该文件夹下包含以下七个子文件夹，对应 \texttt{AQI, CO, NO2, O3, PM2.5, PM10, SO2} 七类空气质量指标的数据。这些数据按时间维度（逐年、逐月、逐小时）进行了整理，并完成了以下清洗工作：
+    \begin{itemize}
+        \item 检测并处理缺失值。
+        \item 识别并修正异常值。
+        \item 按照北京市行政区划（如东城区、西城区等）对监测站点数据进行了分类汇总。
+    \end{itemize}
+\end{itemize}
+
+\subsection{数据格式}  
+清洗后的数据以 CSV 格式存储，文件命名格式为 \texttt{Beijing\_AirQuality\_YYYYXX\_days.csv}，其中 \texttt{YYYY} 表示年份，\texttt{XX} 表示空气质量指标（如 \texttt{AQI}、\texttt{PM2.5} 等）。具体数据格式说明如下：  
+\begin{itemize}
+    \item 第一行为列名，包括日期和各行政区名称（如东城区、西城区等）。
+    \item 以下每行为某日期某指标的观测数值。
+\end{itemize}
+
+\subsection{数据样例}  
+以下是清洗后数据文件的样例 (\texttt{Beijing\_AirQuality\_2014AQI\_days.csv})：  
+
+\begin{verbatim}
+date,          东城区,     西城区,      海淀区, ...
+20140101,      88.198,     90.625,     105.33, ...
+20140102,      119.354,    112.277,    128.236, ...
+20140103,      123.979,    123.264,    146.125, ...
+20140104,      105.813,    102.916,    104.569, ...
+20140105,      172.614,    102.917,    104.569, ...
+\end{verbatim}
+
+\newpage
+\section{数据可视化}
+\subsection{空气治理成效可视化}
+\subsubsection{年均AQI逐年变化情况}
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=\textwidth]{Outputs/北京全年平均AQI趋势图 (2014-2023).png}
+    \caption{北京市年均AQI逐年变化情况}
+    \label{fig:AQI_yearly}
+\end{figure}
+图1展示了2014年至2023年北京市全年平均空气质量指数（AQI）的变化趋势。
+从图中可以看出，北京市的空气质量在过去十年中呈现出明显的改善趋势。
+
+在2014年，北京市的全年平均AQI为120左右，显示出较高的空气污染水平。
+然而，随着时间的推移，AQI值逐年下降，到2018年降至约85。
+这一趋势表明北京市在空气质量改善方面取得了显著进展。
+尽管在2023年AQI值出现了轻微的波动，但总体上仍保持在较低水平，显示出空气质量的持续改善。
+2021年，AQI值下降至约55，达到十年来的最低点。
+
+\subsubsection{主要污染物的逐年变化情况}
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=\textwidth]{Outputs/主要污染物的逐年变化情况.png}
+    \caption{北京市主要污染物浓度逐年变化情况}
+    \label{fig:pollutants_yearly}
+\end{figure}
+图2详细描绘了2015年至2023年北京市六种主要空气污染物浓度相对于前一年变化的百分比。
+这些污染物包括一氧化碳（CO）、二氧化氮（NO2）、臭氧（O3）、可吸入颗粒物（PM10）、
+细颗粒物（PM2.5）和二氧化硫（SO2）。图中的数据并非直接表示污染物的浓度，
+而是展示了每种污染物浓度相对于前一年的变化百分比，
+这有助于更直观地理解污染物浓度的增减趋势。
+
+从图中可以观察到，臭氧（O3）的变化百分比相对稳定，
+二氧化硫（SO2）的变化百分比几乎一直保持为负值，表明其浓度持续降低，
+而其他污染物也在大多年份表现出负的百分变化，说明了其浓度几乎一直在降低，
+反映了北京市空气质量的持续改善。
+
+\subsubsection{近年来全年空气质量情况}
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=\textwidth]{Outputs/2016、2018、2020与2023年日均 AQI 热力图.png}
+    \caption{近年来北京市全年空气质量情况}
+    \label{fig:air_quality_yearly}
+\end{figure}
+
+图3展示了2016年、2018年、2020年和2023年北京市全年空气质量情况的日均AQI热力图。
+图中使用了从浅绿色到深蓝色的渐变色来表示不同的AQI值。浅绿色代表较低的AQI值，而深蓝色则代表较高的AQI值。
+横轴表示月份，从一月到十二月；纵轴表示一周中的每一天，从星期一到星期日。
+并且图上展示了展示了四个不同年份（2016年、2018年、2020年和2023年）的空气质量数据，便于观察和比较不同年份之间的空气质量变化。
+
+从图中可以看出，北京市的空气质量在不同季节存在明显差异。通常，冬季（特别是12月和1月）的空气质量较差，这可能与供暖季节的燃煤排放有关。
+相比之下，夏季（特别是6月、7月和8月）的空气质量较好，这可能与较高的温度和较强的大气扩散条件有关。
+
+通过比较不同年份的数据，可以观察到北京市空气质量的改善趋势。例如，
+2023年的热力图显示出更多的浅绿色区域，表明这一年的空气质量整体上有所改善。
+2016年的图中深蓝色区域较多，表明那一年的空气质量相对较差。随着时间的推移，
+深蓝色区域逐渐减少，显示出空气质量的持续改善。
+
+图中还显示出一周内空气质量的变化。通常，周末的空气质量相对较好，这可能与工作日的交通排放和工业活动有关。
+
+\subsection{北京市空气质量的时空特征}
+\subsubsection{AQI的分布曲线}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.9\textwidth]{Outputs/AQI的分布曲线.png}
+    \caption{北京市 AQI 分布曲线}
+    \label{fig:AQI_distribution}
+\end{figure}
+
+图4展示了北京市空气质量指数（AQI）的分布曲线。
+该图是一个直方图，横轴表示AQI值，纵轴表示频数，即每个AQI区间内出现的次数。
+
+图中的分布曲线呈现出右偏的形态，即大部分数据集中在较低的AQI值区域，
+随着AQI值的增加，频数迅速下降。
+这种分布形态表明北京市的空气质量大多数时间处于较好的状态，高AQI值的情况较少。
+
+\subsubsection{北京市空气质量的区域特征}
+
+图5是一个箱线图，
+展示了2014年至2023年北京市不同区域的空气质量指数（AQI）分布情况。
+图中展示了北京市多个区域的AQI分布情况，包括东城区、西城区、朝阳区、
+海淀区、丰台区、石景山区、房山区、大兴区、通州区、顺义区、昌平区、
+门头沟区、平谷区、怀柔区、密云区、延庆区以及全市平均（mean\_aqi）。
+每个区域的AQI分布通过一个箱线图表示，可以直观地比较不同区域之间的空气质量差异。
+
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Outputs/北京不同区域的AQI箱线图 (2014-2023).png}
+    \caption{北京市不同区域AQI箱线图}
+    \label{fig:air_quality_district}
+\end{figure}
+
+\FloatBarrier
+
+图6是一个柱状图，展示了2014年至2023年北京市各区域强污染的天数。
+图中每个柱子代表一个区域，柱子的高度表示该区域在这段时间内AQI大于300的天数，
+即强污染天数。图中还标出了平均值为51.75天的参考线，用蓝色虚线表示。
+
+从图中可以看出，不同区域的强污染天数存在显著差异。一些区域的柱状较高，表明这些区域在2014年至2023年间经历了更多的强污染天数。
+例如，大兴区、通州区和房山区的柱状明显高于其他区域，表明这两个区域的强污染天数较多。推测可能与当地的产业结构相关。
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Outputs/北京各区域强污染的天数 (2014-2023).png}
+    \caption{北京市各区域强污染的天数}
+    \label{fig:air_quality_district_heatmap}
+\end{figure}
+
+\FloatBarrier
+
+\subsubsection{北京市空气质量的时间特征}
+图7展示了一年四季中不同季节空气质量指数（AQI）
+在一天内的变化情况。图中用不同颜色的线条分别表示了春季(Spring)、夏季(Summer)、
+秋季(Autumn)和冬季(Winter)的AQI变化趋势。
+
+从图中可以看出：春季和冬季的AQI值在一天中的变化趋势相似，均在早晨和晚上较高，而在下午时段较低。
+夏季的AQI值在一天中的变化较为平稳，但在下午时段略有上升。
+秋季的AQI值在一天中的变化趋势与春季和冬季相似，但在下午时段的下降幅度较小。
+
+所有季节的AQI值在早晨时段（大约5点到8点）达到较高水平，这可能与交通高峰期的排放有关。
+在下午时段（大约14点到16点），除了夏季外，其他季节的AQI值都有所下降，这可能与日间的大气扩散条件较好有关。
+晚上时段（大约20点以后），AQI值再次上升，可能与夜间供暖、烹饪等活动有关。
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{Outputs/AQI一日内变化.png}
+    \caption{AQI一日内变化}
+    \label{fig:air_quality_time}
+\end{figure}
+\FloatBarrier
+\subsubsection{北京市空气质量的时空相关性}
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=\textwidth]{Outputs/AQI关于城区和月份的聚类热力图.png}
+    \caption{北京市空气质量的时空聚类热力图}
+    \label{fig:air_quality_correlation}
+\end{figure}
+图8是一个时空聚类热力图，
+展示了北京市不同区域在不同月份的空气质量情况。热力图通过颜色的深浅来表示空气质量指数
+（AQI）的高低，颜色越深表示AQI值越高，即空气质量越差。
+
+从图中可以看出，不同区域和不同月份的空气质量存在显著差异。而且根据聚类结果，
+我们可以大致得到和之前类似的结论：夏季的空气质量相对较好，冬季的空气质量相对较差；
+中心城区的空气质量相对较好，郊区的空气质量相对较差。而且我们还能够看出，
+具体每一个城区，在哪些月份的空气质量相对较差，这对于未来的空气质量治理有一定的参考意义。
+
+\subsubsection{AQI与主要污染物的相关关系}
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=\textwidth]{Outputs/主要污染物以及AQI之间的相互关系.png}
+    \caption{AQI与主要污染物的相关关系}
+    \label{fig:air_quality_pollutants}
+\end{figure}
+图9是一个散点图矩阵，展示了空气质量指数（AQI）
+与不同主要污染物之间的相关关系。这种图表形式有助于观察多个变量之间的两两关系，
+包括它们之间的相关性和分布特征。
+
+对角线上的每个图是一个变量的直方图，展示了该变量的分布情况。
+例如，AQI的直方图显示了AQI值的分布，其他污染物（如CO、NO2、O3等）的直方图也类似。
+非对角线上的每个图是两个变量之间的散点图，展示了这两个变量之间的关系。
+例如，AQI与CO之间的散点图显示了这两个变量之间的关系。
+
+通过观察散点图的分布，可以初步判断两个变量之间是否存在相关性。
+如果散点图中的点大致沿着一条直线分布，那么这两个变量之间可能存在线性相关性。
+例如，AQI与PM2.5之间的散点图显示出明显的正相关趋势，那么可以推断AQI的增加可能与PM2.5浓度的增加有关。
+
+借助该图，我们可以快速识别变量之间的关系，包括相关性、分布特征和异常值。
+从而进一步理解空气质量的成因、评估污染物的影响以及制定空气质量管理策略。
+\FloatBarrier
+\newpage
+\section{结论}
+本研究通过对北京市近年来空气质量数据的分析，探讨了北京市空气质量的现状和治理成效。
+通过数据的处理和可视化，我们发现了一些有趣的现象，例如北京市空气质量的季节性变化，
+不同区域空气质量的差异，以及不同污染物之间的相关性。
+
+具体来说，我们得出了以下结论：
+\begin{itemize}
+    \item 北京市的空气质量在过去十年中呈现出明显的改善趋势，AQI值逐年下降。
+    \item 北京市的主要污染物浓度在过去十年中也呈现出下降趋势，尤其是SO2的浓度持续降低。
+    \item 北京市的空气质量在不同季节和不同区域存在显著差异，冬季和郊区的空气质量相对较差。
+    \item 北京市的空气质量在一天内也存在明显变化，早晨和晚上的AQI值较高，下午较低。
+    \item AQI与主要污染物之间存在一定的相关性，例如AQI与PM2.5之间存在明显的正相关趋势。
+\end{itemize}
+通过对数据的分析，我们可以更好地理解空气质量的时空特征，为未来的空气质量治理提供参考依据。
+本报告的一切数据、代码与可视化成果均已同步至个人github平台：
+\url{https://github.com/Welldefine/Data-Visualization}
+\section{致谢}
+感谢北京市环境保护检测中心和王晓磊提供的数据，为本研究提供了重要的数据支持。
+感谢北京市政府及相关部门对空气质量治理工作的支持和努力。
+感谢数据可视化技术为我们提供了一种直观、有效的分析工具。
 \end{document}
